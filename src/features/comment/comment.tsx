@@ -1,5 +1,9 @@
 const Comment = () => {
-  return <h1>Comment goes here</h1>;
+  return (
+    <div>
+      <p>comment</p>
+    </div>
+  );
 };
 
 export default Comment;

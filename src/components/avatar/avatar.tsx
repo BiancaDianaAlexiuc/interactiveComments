@@ -1,5 +1,5 @@
 const Avatar = () => {
-  return <h1>avatar here</h1>;
+  return <span className="avatar"></span>;
 };
 
 export default Avatar;

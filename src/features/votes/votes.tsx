@@ -1,5 +1,5 @@
 const Votes = () => {
-  return <h1>votes here</h1>;
+  return <p>vote</p>;
 };
 
 export default Votes;
