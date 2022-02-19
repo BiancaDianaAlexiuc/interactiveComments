@@ -12,6 +12,7 @@
 @import url("./features/filter/filter.scss");
 @import url("./features/search/search.scss");
 @import url("./features/votes/votes.scss");
+@import url("./features/add-quote/add-quote.scss");
 
 body {
   background-color: #f5f6fa;
@@ -19,5 +20,4 @@ body {
 
 .App {
   text-align: center;
-  padding: 0 1.5em;
 }

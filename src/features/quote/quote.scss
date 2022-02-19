@@ -1,6 +1,6 @@
 .c-quote {
   &__list {
-    width: 100%;
+    padding: 2em 1.5em 0 1.5em;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1em;

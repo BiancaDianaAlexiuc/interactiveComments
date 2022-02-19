@@ -1,5 +1,22 @@
+import { observer } from "mobx-react";
+import AddQuote from "../../features/add-quote/addQuote";
+import store from "../../store";
+
 const Header = () => {
-  return <h1>Header here</h1>;
+  const showAddQuote = () => {
+    store.showAddQuote = !store.showAddQuote;
+  };
+
+  return (
+    <>
+      <header className="header">
+        <button onClick={showAddQuote} className="add-quote">
+          Add quote
+        </button>
+      </header>
+      <div>{store.showAddQuote && <AddQuote />}</div>
+    </>
+  );
 };
 
-export default Header;
+export default observer(Header);

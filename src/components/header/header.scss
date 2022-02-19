@@ -1,0 +1,21 @@
+.header {
+  padding: 0 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 70px;
+  background-color: #ffffff;
+}
+
+.add-quote {
+  background-color: #535bb1;
+  border-radius: 6px;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 10px;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}

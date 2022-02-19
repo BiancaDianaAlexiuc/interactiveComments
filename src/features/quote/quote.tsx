@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Avatar from "../../components/avatar/avatar";
 import store from "../../store";
 import Votes from "../votes/votes";
+import { v4 as uuidv4 } from "uuid";
 
 const Quote = () => {
   useEffect(() => {
@@ -37,7 +38,11 @@ const Quote = () => {
               </p>
               <ul className="hashtag-list">
                 {hashtags.map((hashtag: string) => {
-                  return <li className="hashtag">#{hashtag}</li>;
+                  return (
+                    <li key={uuidv4()} className="hashtag">
+                      #{hashtag}
+                    </li>
+                  );
                 })}
               </ul>
               <div style={{ display: "flex", justifyContent: "space-between" }}>

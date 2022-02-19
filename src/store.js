@@ -5,6 +5,10 @@ import { db } from "./firebase-config";
 class Store {
   quotesList = [];
   commentsList = [];
+  showAddQuote = false;
+  newAuthor = "";
+  newQuoteText = "";
+  newHashtags = [];
   quoteCollectionRef = collection(db, "quotes");
 
   constructor() {
@@ -17,6 +21,18 @@ class Store {
 
   setCommentsList(commentsList) {
     this.commentsList = commentsList;
+  }
+
+  setNewAuthor(newAuthor) {
+    this.newAuthor = newAuthor;
+  }
+
+  setNewQuoteText(newQuoteText) {
+    this.newQuoteText = newQuoteText;
+  }
+
+  setNewHashtags(newHashtags) {
+    this.newHashtags = newHashtags;
   }
 
   getQuotesList = async () => {
