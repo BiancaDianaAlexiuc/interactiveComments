@@ -39,8 +39,21 @@
       color: #4e565c;
       font-size: 14px;
       font-weight: bold;
-      padding: 10px;
+      padding: 10px 10px 0 10px;
       display: flex;
+
+      &--error {
+        color: #cc0033;
+
+        input,
+        textarea {
+          border: 2px solid #cc0033;
+        }
+
+        .modal__form-container {
+          border: 2px solid #cc0033;
+        }
+      }
     }
 
     &-input {
@@ -64,6 +77,17 @@
       }
     }
 
+    &-error {
+      color: #cc0033;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 15px;
+      margin: 0;
+      text-align: left;
+      margin-left: 27%;
+      padding-bottom: 10px;
+    }
+
     &-submit {
       cursor: pointer;
       appearance: none;
@@ -75,9 +99,87 @@
       font-weight: 600;
       border-radius: 10px;
       width: 100%;
+      margin: 20px 0;
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+
+    &-container {
+      display: flex;
+      width: 70%;
+      overflow: auto;
+      margin: 10px 0;
+      padding: 0 10px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+      transition: 0.3s border-color;
+
+      &:hover {
+        border: 1px solid #aaa;
+      }
+
+      /* width */
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        margin-top: 10px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      input {
+        width: 100%;
+        min-width: 50%;
+        border: none;
+        border-radius: 5px;
+        padding: 14px;
+        padding-left: 14px;
+
+        &:focus,
+        &:focus-visible,
+        &:focus-within {
+          border: none;
+          outline: none;
+        }
+      }
+
+      .tag {
+        display: flex;
+        align-items: center;
+        margin: 7px 0;
+        margin-right: 10px;
+        padding: 0 10px;
+        padding-right: 5px;
+        border: 1px solid #535bb1;
+        border-radius: 5px;
+        background-color: #535bb1;
+        white-space: nowrap;
+        color: white;
+
+        button {
+          display: flex;
+          padding: 6px;
+          border: none;
+          background-color: unset;
+          cursor: pointer;
+          color: white;
+        }
       }
     }
   }

@@ -9,6 +9,7 @@ class Store {
   newAuthor = "";
   newQuoteText = "";
   newHashtags = [];
+  isKeyReleased = false;
   quoteCollectionRef = collection(db, "quotes");
 
   constructor() {
@@ -33,6 +34,14 @@ class Store {
 
   setNewHashtags(newHashtags) {
     this.newHashtags = newHashtags;
+  }
+
+  setInputHashtag(inputHashtag) {
+    this.inputHashtag = inputHashtag;
+  }
+
+  setIsKeyReleased(isKeyReleased) {
+    this.isKeyReleased = isKeyReleased;
   }
 
   getQuotesList = async () => {
