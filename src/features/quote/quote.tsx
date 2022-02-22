@@ -4,6 +4,7 @@ import Avatar from "../../components/avatar/avatar";
 import store from "../../store";
 import Votes from "../votes/votes";
 import { v4 as uuidv4 } from "uuid";
+import DeleteDialog from "../../components/deleteDialog/deleteDialog";
 
 const Quote = () => {
   useEffect(() => {
@@ -16,7 +17,6 @@ const Quote = () => {
         let created = qt.created.toDate().toDateString();
         let updated = qt.updated.toDate().toDateString();
         let hashtags = qt.hashtags;
-        console.log(created);
         return (
           <div className="c-quote__element" key={qt.id}>
             <div>
@@ -28,10 +28,23 @@ const Quote = () => {
                   <Avatar></Avatar>
                   <p className="author">{qt.author}</p>
                 </div>
-                <button className="reply">
-                  <span className="icon-reply"></span>
-                  Reply
-                </button>
+                <div>
+                  <button
+                    onClick={() => {
+                      store.toggleDeleteDialog();
+                      store.setSelectedQuote(qt.id);
+                      console.log(store.selectedQuote);
+                    }}
+                    className="delete"
+                  >
+                    <span className="icon-delete"></span>
+                    Delete
+                  </button>
+                  <button className="reply">
+                    <span className="icon-reply"></span>
+                    Reply
+                  </button>
+                </div>
               </div>
               <p className="quote-text" style={{ marginTop: "0" }}>
                 {qt.body}
@@ -53,6 +66,7 @@ const Quote = () => {
           </div>
         );
       })}
+      {store.showDeleteDialog && <DeleteDialog />}
     </div>
   );
 };

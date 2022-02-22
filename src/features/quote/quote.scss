@@ -78,6 +78,33 @@
       color: #6263a9;
       font-size: 14px;
       font-weight: 600;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .delete {
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
+      color: #ef6465;
+      font-size: 14px;
+      font-weight: 600;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .icon-delete {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+      background-image: url("../../assets/icons/icon-delete.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
     }
   }
 }

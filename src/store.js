@@ -8,9 +8,12 @@ class Store {
   showAddQuote = false;
   newAuthor = "";
   newQuoteText = "";
+  inputHashtag = "";
   newHashtags = [];
   isKeyReleased = false;
+  showDeleteDialog = false;
   quoteCollectionRef = collection(db, "quotes");
+  selectedQuote = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -44,10 +47,26 @@ class Store {
     this.isKeyReleased = isKeyReleased;
   }
 
+  setShowDeleteDialog(showDeleteDialog) {
+    this.showDeleteDialog = showDeleteDialog;
+  }
+
+  setSelectedQuote(selectedQuote) {
+    this.selectedQuote = selectedQuote;
+  }
+
   getQuotesList = async () => {
     const data = await getDocs(this.quoteCollectionRef);
     const quotesData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     this.setQuotesList(quotesData);
+  };
+
+  onKeyUp = () => {
+    this.setIsKeyReleased(true);
+  };
+
+  toggleDeleteDialog = () => {
+    this.showDeleteDialog = !this.showDeleteDialog;
   };
 }
 
