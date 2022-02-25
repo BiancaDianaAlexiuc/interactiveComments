@@ -75,7 +75,7 @@ const AddQuote = () => {
       hashtags: store.newHashtags,
       created: Timestamp.fromDate(new Date()),
       updated: Timestamp.fromDate(new Date()),
-      votes: 0,
+      likes: 0,
       comments: [],
     });
 

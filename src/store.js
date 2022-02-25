@@ -14,9 +14,26 @@ class Store {
   showDeleteDialog = false;
   quoteCollectionRef = collection(db, "quotes");
   selectedQuote = "";
+  votesNumber = [];
+  userAction = [];
+  clickedUpVote = false;
+  clickedDownVote = false;
+  disabled = false;
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setDisabled(disabled) {
+    this.disabled = disabled;
+  }
+
+  setClickedUpVote(clickedUpVote) {
+    this.clickedUpVote = clickedUpVote;
+  }
+
+  setClickedDownVote(clickedDownVote) {
+    this.clickedDownVote = clickedDownVote;
   }
 
   setQuotesList(quotesList) {
@@ -53,6 +70,14 @@ class Store {
 
   setSelectedQuote(selectedQuote) {
     this.selectedQuote = selectedQuote;
+  }
+
+  setVotesNumber(votesNumber) {
+    this.votesNumber = votesNumber;
+  }
+
+  setUserAction(userAction) {
+    this.userAction = userAction;
   }
 
   getQuotesList = async () => {

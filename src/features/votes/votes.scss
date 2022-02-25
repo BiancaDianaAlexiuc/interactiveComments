@@ -1,0 +1,42 @@
+.votes {
+  &__container {
+    background-color: #f5f6fa;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  &__value {
+    color: #4d54a0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &__btn {
+    color: #c7c5e1;
+    outline: unset;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 10px 10px 5px;
+    font-size: 20px;
+    font-weight: 600;
+
+    &:disabled {
+      &:hover {
+        color: #c7c5e1;
+        cursor: not-allowed;
+      }
+    }
+
+    &:last-of-type {
+      padding-top: 5px;
+    }
+
+    &:hover {
+      color: #4d54a0;
+    }
+  }
+}

@@ -20,9 +20,9 @@ const Quote = () => {
         return (
           <div className="c-quote__element" key={qt.id}>
             <div>
-              <Votes />
+              <Votes votesNumber={qt.likes} quoteId={qt.id} />
             </div>
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%", paddingLeft: "20px" }}>
               <div className="c-quote__header">
                 <div className="c-quote__header-details">
                   <Avatar></Avatar>
