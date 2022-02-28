@@ -1,5 +1,14 @@
 const Search = () => {
-  return <h1>search</h1>;
+  return (
+    <div className="search__container">
+      <input
+        placeholder="Search using keywords"
+        type="text"
+        className="search__input"
+      />
+      <button className="search__button"></button>
+    </div>
+  );
 };
 
 export default Search;

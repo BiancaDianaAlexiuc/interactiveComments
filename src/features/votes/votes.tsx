@@ -1,4 +1,3 @@
-import { strictEqual } from "assert";
 import { updateDoc, doc } from "firebase/firestore";
 import { toJS } from "mobx";
 import { db } from "../../firebase-config";
@@ -20,40 +19,36 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
     await updateDoc(likesDoc, newFields);
   };
 
-  const upVote = () => {
-    // if (props.quoteId) {
-    store.setClickedUpVote(true);
+  const upVote = (e: any) => {
+    store.setDisabled((e.target.disabled = true));
     store.setVotesNumber(props.votesNumber + 1);
+
     voteValue = store.votesNumber;
     console.log(store.votesNumber);
+
     updateLikes(props.quoteId, voteValue);
     store.userAction.push({
       id: props.quoteId,
       likes: voteValue,
-      upvote: store.clickedUpVote,
-      downvote: false,
+      disabled: store.disabled,
     });
+
     console.log(toJS(store.userAction));
     store.getQuotesList();
-
-    if (props.quoteId && store.clickedUpVote) {
-      console.log("here should be disabled");
-      store.setDisabled(true);
-    }
-
-    // }
   };
 
-  const downVote = () => {
-    store.setClickedDownVote(true);
+  const downVote = (e: any) => {
+    store.setDisabled((e.target.disabled = true));
     store.setVotesNumber(props.votesNumber - 1);
+
     voteValue = store.votesNumber;
+    console.log(store.votesNumber);
+
     updateLikes(props.quoteId, voteValue);
     store.userAction.push({
       id: props.quoteId,
       likes: voteValue,
-      upvote: false,
-      downvote: store.clickedDownVote,
+      disabled: store.disabled,
     });
 
     console.log(toJS(store.userAction));
@@ -62,19 +57,11 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
 
   return (
     <div className="votes__container">
-      <button
-        disabled={store.clickedUpVote}
-        onClick={upVote}
-        className="votes__btn"
-      >
+      <button onClick={(e: any) => upVote(e)} className="votes__btn">
         +
       </button>
       <span className="votes__value">{store.votesNumber}</span>
-      <button
-        disabled={store.clickedDownVote}
-        onClick={downVote}
-        className="votes__btn"
-      >
+      <button onClick={(e: any) => downVote(e)} className="votes__btn">
         -
       </button>
     </div>

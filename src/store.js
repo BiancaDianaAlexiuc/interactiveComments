@@ -16,8 +16,6 @@ class Store {
   selectedQuote = "";
   votesNumber = [];
   userAction = [];
-  clickedUpVote = false;
-  clickedDownVote = false;
   disabled = false;
 
   constructor() {
@@ -26,14 +24,6 @@ class Store {
 
   setDisabled(disabled) {
     this.disabled = disabled;
-  }
-
-  setClickedUpVote(clickedUpVote) {
-    this.clickedUpVote = clickedUpVote;
-  }
-
-  setClickedDownVote(clickedDownVote) {
-    this.clickedDownVote = clickedDownVote;
   }
 
   setQuotesList(quotesList) {
