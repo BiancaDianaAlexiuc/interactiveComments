@@ -17,9 +17,21 @@ class Store {
   votesNumber = [];
   userAction = [];
   disabled = false;
+  //value of search field
+  searchQuery = "";
+  // the search result
+  foundQuery = [];
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setFoundQuery(foundQuery) {
+    this.foundQuery = foundQuery;
+  }
+
+  setSearchQuery(searchQuery) {
+    this.searchQuery = searchQuery;
   }
 
   setDisabled(disabled) {
@@ -82,6 +94,21 @@ class Store {
 
   toggleDeleteDialog = () => {
     this.showDeleteDialog = !this.showDeleteDialog;
+  };
+
+  filterQuote = (e) => {
+    const keyword = e.target.value;
+
+    if (keyword !== "") {
+      const results = this.quotesList.filter((qt) => {
+        return qt.body.toLowerCase().includes(keyword.toLowerCase());
+      });
+      this.setFoundQuery(results);
+    } else {
+      this.setFoundQuery(this.quotesList);
+    }
+
+    this.setSearchQuery(keyword);
   };
 }
 
