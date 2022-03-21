@@ -6,7 +6,6 @@ import Votes from "../votes/votes";
 import { v4 as uuidv4 } from "uuid";
 import DeleteDialog from "../../components/deleteDialog/deleteDialog";
 import Search from "../search/search";
-import { toJS } from "mobx";
 
 const Quote = () => {
   useEffect(() => {
@@ -15,20 +14,8 @@ const Quote = () => {
 
   return (
     <>
-      {/* <Search /> */}
-      <div className="search__container">
-        <input
-          placeholder="Search using keywords"
-          type="text"
-          className="search__input"
-          value={store.searchQuery}
-          onChange={store.filterQuote}
-        />
-        <button className="search__button"></button>
-      </div>
+      <Search />
       <div className="c-quote__list">
-        {console.log(toJS(store.foundQuery))}
-
         {store.foundQuery && store.foundQuery.length > 0 ? (
           store.foundQuery.map((qt: any) => {
             let created = qt.created.toDate().toDateString();

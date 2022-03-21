@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { collection, getDocs } from "@firebase/firestore";
 import { db } from "./firebase-config";
+import { toJS } from "mobx";
 
 class Store {
   quotesList = [];
@@ -18,7 +19,7 @@ class Store {
   userAction = [];
   disabled = false;
   //value of search field
-  searchQuery = "";
+  searchQuery = " ";
   // the search result
   foundQuery = [];
 
@@ -86,6 +87,7 @@ class Store {
     const data = await getDocs(this.quoteCollectionRef);
     const quotesData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     this.setQuotesList(quotesData);
+    this.setFoundQuery(quotesData);
   };
 
   onKeyUp = () => {
@@ -96,16 +98,29 @@ class Store {
     this.showDeleteDialog = !this.showDeleteDialog;
   };
 
-  filterQuote = (e) => {
-    const keyword = e.target.value;
+  handleInputChange = (e) => {
+    console.log(e.target.value);
+    this.searchQuery = e.target.value;
+  };
 
-    if (keyword !== "") {
-      const results = this.quotesList.filter((qt) => {
-        return qt.body.toLowerCase().includes(keyword.toLowerCase());
-      });
-      this.setFoundQuery(results);
-    } else {
-      this.setFoundQuery(this.quotesList);
+  filterQuote = (e) => {
+    console.log(this.searchQuery);
+    const keyword = this.searchQuery;
+    console.log(keyword);
+    const foundQuotes = this.quotesList;
+    console.log(toJS(foundQuotes), "from here");
+    const matchWords = keyword.split(" ");
+    console.log("match words", matchWords);
+
+    for (let i = 0; i < matchWords.length; i++) {
+      if (keyword !== "") {
+        const result = foundQuotes.filter((qt) => {
+          return qt.body.toLowerCase().match(matchWords[i].toLowerCase());
+        });
+        this.setFoundQuery(result);
+      } else {
+        this.setFoundQuery(foundQuotes);
+      }
     }
 
     this.setSearchQuery(keyword);
