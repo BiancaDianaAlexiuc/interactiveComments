@@ -25,35 +25,26 @@ const Filter = () => {
     }),
   };
 
-  const handleChange: any = (options: []) => {
+  const handleChange: any = (options: [], triggeredAction: any) => {
     store.setSelectedHashtags(options);
-    console.log("change", toJS(store.selectedHashtags));
+
+    if (triggeredAction.action === "clear") {
+      store.setFoundQuery(store.quotesList);
+    }
   };
 
   const onKeyDown: any = (e: any) => {
     const { key } = e;
     if (key === "Enter" && store.selectedHashtags.length > 0) {
-      console.log("enter", toJS(store.selectedHashtags));
       const val = store.selectedHashtags.map((el) => {
         return el.value.toLowerCase();
       });
 
-      console.log("QUOTES LIST", toJS(store.quotesList));
       const result = store.quotesList.filter((qt) => {
-        // console.log("VALLLL ==============", val, toJS(qt));
-        // const hashtag = qt.hashtags.map((h: any) => {
-        //   return h.toLowerCase();
-        // });
-
-        console.log(toJS(qt.hashtags));
-
-        // return hashtag;
-
-        return qt.hashtags.contains(val);
+        return qt.hashtags.some((h: any) => val.includes(h));
       });
-      store.setFoundQuery(result);
 
-      // console.log("result here", toJS(result));
+      store.setFoundQuery(result);
     }
   };
 

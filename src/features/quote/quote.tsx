@@ -14,7 +14,6 @@ const Quote = () => {
     store.getQuotesList();
   }, []);
 
-  console.log("hashtags", toJS(store.hashtagsToFilter));
   return (
     <>
       <div className="c-quote__filters">

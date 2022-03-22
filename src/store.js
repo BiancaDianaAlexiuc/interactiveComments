@@ -124,18 +124,13 @@ class Store {
   };
 
   handleInputChange = (e) => {
-    console.log(e.target.value);
     this.searchQuery = e.target.value;
   };
 
   filterQuote = (e) => {
-    console.log(this.searchQuery);
     const keyword = this.searchQuery;
-    console.log(keyword);
     const foundQuotes = this.quotesList;
-    console.log(toJS(foundQuotes), "Found quotes");
     const matchWords = keyword.split(" ");
-    console.log("Match words", matchWords);
 
     for (let i = 0; i < matchWords.length; i++) {
       if (keyword !== "") {
