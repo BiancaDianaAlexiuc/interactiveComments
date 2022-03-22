@@ -23,8 +23,25 @@ class Store {
   // the search result
   foundQuery = [];
 
+  // Filter by hashtags
+  displayHashtags = false;
+  hashtagsToFilter = [];
+  selectedHashtags = [];
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setSelectedHashtags(selectedHashtags) {
+    this.selectedHashtags = selectedHashtags;
+  }
+
+  setHashtagsToFilter(hashtagsToFilter) {
+    this.hashtagsToFilter = hashtagsToFilter;
+  }
+
+  setDisplayHashtags(displayHashtags) {
+    this.displayHashtags = displayHashtags;
   }
 
   setFoundQuery(foundQuery) {
@@ -86,8 +103,12 @@ class Store {
   getQuotesList = async () => {
     const data = await getDocs(this.quoteCollectionRef);
     const quotesData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const hashtagsData = quotesData.map((qt) => {
+      return qt.hashtags;
+    });
     this.setQuotesList(quotesData);
     this.setFoundQuery(quotesData);
+    this.setHashtagsToFilter(hashtagsData.flat(1));
   };
 
   onKeyUp = () => {
@@ -96,6 +117,10 @@ class Store {
 
   toggleDeleteDialog = () => {
     this.showDeleteDialog = !this.showDeleteDialog;
+  };
+
+  toggleDisplayHashtags = () => {
+    this.displayHashtags = !this.displayHashtags;
   };
 
   handleInputChange = (e) => {
@@ -108,9 +133,9 @@ class Store {
     const keyword = this.searchQuery;
     console.log(keyword);
     const foundQuotes = this.quotesList;
-    console.log(toJS(foundQuotes), "from here");
+    console.log(toJS(foundQuotes), "Found quotes");
     const matchWords = keyword.split(" ");
-    console.log("match words", matchWords);
+    console.log("Match words", matchWords);
 
     for (let i = 0; i < matchWords.length; i++) {
       if (keyword !== "") {
@@ -122,7 +147,6 @@ class Store {
         this.setFoundQuery(foundQuotes);
       }
     }
-
     this.setSearchQuery(keyword);
   };
 }

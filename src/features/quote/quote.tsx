@@ -6,15 +6,21 @@ import Votes from "../votes/votes";
 import { v4 as uuidv4 } from "uuid";
 import DeleteDialog from "../../components/deleteDialog/deleteDialog";
 import Search from "../search/search";
+import Filter from "../filter/filter";
+import { toJS } from "mobx";
 
 const Quote = () => {
   useEffect(() => {
     store.getQuotesList();
   }, []);
 
+  console.log("hashtags", toJS(store.hashtagsToFilter));
   return (
     <>
-      <Search />
+      <div className="c-quote__filters">
+        <Search />
+        <Filter />
+      </div>
       <div className="c-quote__list">
         {store.foundQuery && store.foundQuery.length > 0 ? (
           store.foundQuery.map((qt: any) => {
