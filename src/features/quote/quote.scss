@@ -19,11 +19,22 @@
     gap: 1em;
   }
 
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   &__element {
     background-color: #ffffff;
     border-radius: 0.5em;
     padding: 0.5em 1em;
     display: flex;
+    // height: 100%;
+
+    .quote-text {
+      cursor: pointer;
+    }
 
     .quote-text,
     .created,

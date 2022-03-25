@@ -1,7 +1,5 @@
 import store from "../../store";
 import Select, { StylesConfig } from "react-select";
-import { toJS } from "mobx";
-import { visitParameterList } from "typescript";
 
 export interface ColourOption {
   readonly value: string;

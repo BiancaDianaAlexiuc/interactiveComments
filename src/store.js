@@ -28,8 +28,20 @@ class Store {
   hashtagsToFilter = [];
   selectedHashtags = [];
 
+  //Show quote comments
+  showComments = false;
+  commentObject = [];
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setCommentObject(commentObject) {
+    this.commentObject = commentObject;
+  }
+
+  setShowComments(showComments) {
+    this.showComments = showComments;
   }
 
   setSelectedHashtags(selectedHashtags) {
@@ -121,6 +133,10 @@ class Store {
 
   toggleDisplayHashtags = () => {
     this.displayHashtags = !this.displayHashtags;
+  };
+
+  toggleShowComments = () => {
+    this.showComments = !this.showComments;
   };
 
   handleInputChange = (e) => {

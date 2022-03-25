@@ -1,0 +1,23 @@
+.c-comments__container {
+  background-color: #f5f6fa;
+  padding: 10px 0 0 40px;
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 2px;
+    height: 70%;
+    left: 4%;
+    top: 20px;
+    background-color: #eaebef;
+    position: absolute;
+  }
+
+  .c-comment {
+    background-color: #ffffff;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    margin: 10px 0;
+    display: flex;
+  }
+}
