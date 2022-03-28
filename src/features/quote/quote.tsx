@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Avatar from "../../components/avatar/avatar";
 import store from "../../store";
 import Votes from "../votes/votes";
@@ -8,8 +8,11 @@ import DeleteDialog from "../../components/deleteDialog/deleteDialog";
 import Search from "../search/search";
 import Filter from "../filter/filter";
 import Comment from "../comment/comment";
+import AddComment from "../add-comment/addComment";
 
 const Quote = () => {
+  const [isToggle, setIsToggle] = useState(-1);
+
   useEffect(() => {
     store.getQuotesList();
   }, []);
@@ -22,6 +25,11 @@ const Quote = () => {
       }
     });
     // store.toggleShowComments();
+  };
+
+  const handleReplyClick = (id: any) => {
+    setIsToggle(id);
+    console.log("toggled", id);
   };
 
   return (
@@ -59,7 +67,10 @@ const Quote = () => {
                           <span className="icon-delete"></span>
                           Delete
                         </button>
-                        <button className="reply">
+                        <button
+                          onClick={() => handleReplyClick(qt.id)}
+                          className="reply"
+                        >
                           <span className="icon-reply"></span>
                           Reply
                         </button>
@@ -94,6 +105,8 @@ const Quote = () => {
                     </div>
                   </div>
                 </div>
+                {isToggle === qt.id && <AddComment />}
+
                 {store.selectedQuote === qt.id && (
                   <Comment
                     comments={store.commentObject}
