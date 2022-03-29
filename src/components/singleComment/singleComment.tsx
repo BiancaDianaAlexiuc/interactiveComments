@@ -1,14 +1,19 @@
+import { toJS } from "mobx";
 import Votes from "../../features/votes/votes";
+import store from "../../store";
 import Avatar from "../avatar/avatar";
+import DeleteDialog from "../deleteDialog/deleteDialog";
 
 interface SingleComment {
   votes: any;
   author: any;
   id: any;
   body: any;
+  comments: any;
 }
 
 const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
+  console.log(toJS(props.comments));
   return (
     <div className="c-comment">
       <div className="c-quote__element">
@@ -22,7 +27,13 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
               <p className="author">{props.author}</p>
             </div>
             <div>
-              <button className="delete">
+              <button
+                onClick={() => {
+                  store.toggleDeleteDialog();
+                  store.setToDelete("comment");
+                }}
+                className="delete"
+              >
                 <span className="icon-delete"></span>
                 Delete
               </button>
@@ -37,6 +48,8 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
           </p>
         </div>
       </div>
+
+      {store.showDeleteDialog && <DeleteDialog />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { collection, getDocs } from "@firebase/firestore";
-import { db } from "./firebase-config";
+import db from "./firebase-config";
 import { toJS } from "mobx";
 
 class Store {
@@ -14,6 +14,7 @@ class Store {
   isKeyReleased = false;
   showDeleteDialog = false;
   quoteCollectionRef = collection(db, "quotes");
+  quoteData = [];
   selectedQuote = "";
   votesNumber = [];
   userAction = [];
@@ -32,8 +33,26 @@ class Store {
   showComments = false;
   commentObject = [];
 
+  //Add new comment
+  commentText = "";
+
+  // Delete comment
+  toDelete = " ";
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setToDelete(toDelete) {
+    this.toDelete = toDelete;
+  }
+
+  setQuoteData(quoteData) {
+    this.quoteData = quoteData;
+  }
+
+  setCommentText(commentText) {
+    this.commentText = commentText;
   }
 
   setCommentObject(commentObject) {
@@ -125,6 +144,10 @@ class Store {
 
   onKeyUp = () => {
     this.setIsKeyReleased(true);
+  };
+
+  toggleDeleteComment = () => {
+    this.deleteComment = !this.deleteComment;
   };
 
   toggleDeleteDialog = () => {

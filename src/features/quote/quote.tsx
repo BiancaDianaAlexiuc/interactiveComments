@@ -24,12 +24,11 @@ const Quote = () => {
         store.setCommentObject(qt.comment);
       }
     });
-    // store.toggleShowComments();
+    store.getQuotesList();
   };
 
   const handleReplyClick = (id: any) => {
     setIsToggle(id);
-    console.log("toggled", id);
   };
 
   return (
@@ -61,6 +60,7 @@ const Quote = () => {
                           onClick={() => {
                             store.toggleDeleteDialog();
                             store.setSelectedQuote(qt.id);
+                            store.setToDelete("quote");
                           }}
                           className="delete"
                         >
@@ -105,7 +105,7 @@ const Quote = () => {
                     </div>
                   </div>
                 </div>
-                {isToggle === qt.id && <AddComment />}
+                {isToggle === qt.id && <AddComment id={qt.id} />}
 
                 {store.selectedQuote === qt.id && (
                   <Comment

@@ -16,6 +16,7 @@ const Comment: React.FC<Comment> = (props: Comment) => {
             author={el.author}
             id={el.id}
             body={el.body}
+            comments={el}
           />
         );
       })}

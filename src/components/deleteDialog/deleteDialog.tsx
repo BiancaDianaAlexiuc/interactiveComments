@@ -1,6 +1,12 @@
 import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import db from "../../firebase-config";
 import store from "../../store";
+
+// interface DeleteDialog {
+//   title: any;
+//   text: any;
+// }
+// const DeleteDialog: React.FC<DeleteDialog> = (props: DeleteDialog) => {
 
 const DeleteDialog = () => {
   const deleteQuote = async (id: string) => {
@@ -15,12 +21,15 @@ const DeleteDialog = () => {
     <div className="modal__delete">
       <div className="modal__delete-content">
         <div className="modal__delete-header">
-          <h2 className="modal__delete-title">Delete quote</h2>
+          <h2 className="modal__delete-title">
+            Delete {store.toDelete === "quote" ? "quote" : "comment"}
+          </h2>
         </div>
         <div className="modal__delete-body">
           <p className="modal__delete-desc">
-            Are you sure you want to delete this quote? This will remove the
-            quote and can't be undone.
+            Are you sure you want to delete this{" "}
+            {store.toDelete === "quote" ? "quote" : "comment"}? This will remove
+            the quote and can't be undone.
           </p>
           <div className="modal__delete-btns">
             <button

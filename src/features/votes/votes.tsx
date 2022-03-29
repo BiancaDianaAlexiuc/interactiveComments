@@ -1,6 +1,6 @@
 import { updateDoc, doc } from "firebase/firestore";
 import { toJS } from "mobx";
-import { db } from "../../firebase-config";
+import db from "../../firebase-config";
 import store from "../../store";
 
 interface IMyProps {
