@@ -1,12 +1,7 @@
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc, arrayRemove } from "firebase/firestore";
 import db from "../../firebase-config";
 import store from "../../store";
 
-// interface DeleteDialog {
-//   title: any;
-//   text: any;
-// }
-// const DeleteDialog: React.FC<DeleteDialog> = (props: DeleteDialog) => {
 
 const DeleteDialog = () => {
   const deleteQuote = async (id: string) => {
@@ -16,6 +11,25 @@ const DeleteDialog = () => {
     store.toggleDeleteDialog();
     store.getQuotesList();
   };
+
+  const deleteComment = async (obj: string) => {
+    let  docId = store.selectedQuote;
+    const ref: any = doc(db, "quotes", docId);
+
+  
+    await updateDoc(ref, {
+      comment: arrayRemove(obj)
+    })
+    .catch((err) => {
+      console.log("Error removing doc", err);
+    })
+
+    store.removeFromArray(store.commentObject, obj);
+    store.toggleDeleteDialog();
+    
+  }
+
+  
 
   return (
     <div className="modal__delete">
@@ -40,7 +54,9 @@ const DeleteDialog = () => {
             </button>
             <button
               onClick={() => {
-                deleteQuote(store.selectedQuote);
+
+                store.toDelete === "quote" ? deleteQuote(store.selectedQuote) : deleteComment(store.selectedComment)
+                
               }}
               className="modal__delete-btn modal__delete-btn--confirm"
             >

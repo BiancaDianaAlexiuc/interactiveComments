@@ -38,9 +38,14 @@ class Store {
 
   // Delete comment
   toDelete = " ";
+  selectedComment = "";
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setSelectedComment(selectedComment) {
+    this.selectedComment = selectedComment;
   }
 
   setToDelete(toDelete) {
@@ -183,6 +188,14 @@ class Store {
     }
     this.setSearchQuery(keyword);
   };
+
+  removeFromArray = (array, value) => {
+    var idx = array.indexOf(value);
+    if (idx !== -1) {
+        array.splice(idx, 1);
+    }
+    return array;
+}
 }
 
 const store = new Store();

@@ -13,7 +13,6 @@ interface SingleComment {
 }
 
 const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
-  console.log(toJS(props.comments));
   return (
     <div className="c-comment">
       <div className="c-quote__element">
@@ -31,6 +30,7 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
                 onClick={() => {
                   store.toggleDeleteDialog();
                   store.setToDelete("comment");
+                  store.setSelectedComment(props.comments);
                 }}
                 className="delete"
               >
