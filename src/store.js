@@ -40,8 +40,15 @@ class Store {
   toDelete = " ";
   selectedComment = "";
 
+  //Update comment 
+  editActive = false;
+
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setEditActive(editActive) {
+    this.editActive = editActive;
   }
 
   setSelectedComment(selectedComment) {
@@ -150,6 +157,11 @@ class Store {
   onKeyUp = () => {
     this.setIsKeyReleased(true);
   };
+
+  toggleEditComment = () => {
+    this.editActive = !this.editActive;
+    console.log('here i am', this.editActive);
+  }
 
   toggleDeleteComment = () => {
     this.deleteComment = !this.deleteComment;

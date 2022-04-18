@@ -1,8 +1,11 @@
 import { toJS } from "mobx";
+import { observer } from "mobx-react";
+import { useState } from "react";
 import Votes from "../../features/votes/votes";
 import store from "../../store";
 import Avatar from "../avatar/avatar";
 import DeleteDialog from "../deleteDialog/deleteDialog";
+import UpdateComment from "../update-comment/update-comment";
 
 interface SingleComment {
   votes: any;
@@ -13,6 +16,14 @@ interface SingleComment {
 }
 
 const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
+  const [toggleEdit, setToggleEdit] = useState(true);
+
+
+  const handleEditClick = (id: any) => {
+    setToggleEdit(id);
+    store.toggleEditComment();
+  }
+  
   return (
     <div className="c-comment">
       <div className="c-quote__element">
@@ -41,11 +52,21 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
                 <span className="icon-reply"></span>
                 Reply
               </button>
+                <button onClick={() => handleEditClick(props.comments.id)}  className="edit">
+                <span className="icon-edit"></span>
+                Edit
+              </button>
             </div>
           </div>
-          <p className="quote-text" style={{ marginTop: "0" }}>
+
+
+          { store.editActive ? 
+          <UpdateComment value={props.body} /> :  
+           <p className="quote-text" style={{ marginTop: "0" }}>
             {props.body}
-          </p>
+          </p> }
+          
+  
         </div>
       </div>
 
@@ -54,4 +75,4 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
   );
 };
 
-export default SingleComment;
+export default observer(SingleComment);

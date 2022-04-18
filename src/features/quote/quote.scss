@@ -30,7 +30,7 @@
     border-radius: 0.5em;
     padding: 0.5em 1em;
     display: flex;
-    // height: 100%;
+    width: inherit;
 
     .quote-text {
       cursor: pointer;
@@ -95,7 +95,8 @@
       background-repeat: no-repeat;
     }
 
-    .reply {
+    .reply,
+    .edit {
       cursor: pointer;
       border: 0;
       background-color: transparent;
@@ -131,6 +132,17 @@
       background-repeat: no-repeat;
     }
   }
+}
+
+
+.icon-edit {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    background-image: url("../../assets/icons/icon-edit.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 @media (min-width: 800px) {
