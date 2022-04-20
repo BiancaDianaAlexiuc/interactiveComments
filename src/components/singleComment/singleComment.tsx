@@ -16,12 +16,14 @@ interface SingleComment {
 }
 
 const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
-  const [toggleEdit, setToggleEdit] = useState(true);
+  const [toggleEdit, setToggleEdit] = useState(false);
 
+  const togglerEdit = () => {
+    setToggleEdit(prev => !prev);
+  }
 
-  const handleEditClick = (id: any) => {
-    setToggleEdit(id);
-    store.toggleEditComment();
+  const handleEditClick = (id: string) => {
+    togglerEdit.call(id);
   }
   
   return (
@@ -60,8 +62,8 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
           </div>
 
 
-          { store.editActive ? 
-          <UpdateComment value={props.body} /> :  
+          { toggleEdit ? 
+          <UpdateComment value={props.body} id={props.comments.id} selectedCommentObj={toJS(props.comments)} /> :  
            <p className="quote-text" style={{ marginTop: "0" }}>
             {props.body}
           </p> }

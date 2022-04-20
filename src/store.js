@@ -42,13 +42,18 @@ class Store {
 
   //Update comment 
   editActive = false;
+  updatedCommentValue = '';
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  setUpdatedCommentValue(updatedCommentValue) {
+    this.updatedCommentValue = updatedCommentValue;
+  }
+
   setEditActive(editActive) {
-    this.editActive = editActive;
+   this.editActive = editActive;
   }
 
   setSelectedComment(selectedComment) {
@@ -159,8 +164,7 @@ class Store {
   };
 
   toggleEditComment = () => {
-    this.editActive = !this.editActive;
-    console.log('here i am', this.editActive);
+   this.editActive = !this.editActive;
   }
 
   toggleDeleteComment = () => {

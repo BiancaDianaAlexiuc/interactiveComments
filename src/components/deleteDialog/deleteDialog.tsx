@@ -12,7 +12,7 @@ const DeleteDialog = () => {
     store.getQuotesList();
   };
 
-  const deleteComment = async (obj: string) => {
+  const deleteComment = async (obj: Object) => {
     let  docId = store.selectedQuote;
     const ref: any = doc(db, "quotes", docId);
 
