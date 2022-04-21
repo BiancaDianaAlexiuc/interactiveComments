@@ -1,5 +1,11 @@
 const Footer = () => {
-  return <h1>Footer here</h1>;
+  return (
+    <div className="c-footer">
+      <p className="c-footer__text">
+        Created by Bianca ALEXIUC
+      </p>
+    </div>
+  );
 };
 
 export default Footer;

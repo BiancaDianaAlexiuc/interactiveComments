@@ -1,10 +1,11 @@
-import { arrayRemove, arrayUnion, doc, FieldValue, Timestamp, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, FieldValue, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { observer } from "mobx-react";
 import db from "../../firebase-config";
 import store from "../../store";
 import { v4 as uuidv4 } from "uuid";
 import { strictEqual } from "assert";
 import { toJS } from "mobx";
+import { FirebaseError } from "firebase/app";
 
 interface UpdateComment {
     value: string;
@@ -15,10 +16,10 @@ interface UpdateComment {
 const UpdateComment: React.FC<UpdateComment> = (props: UpdateComment ) => {
 
    const  updateComment  = async (obj: Object) => {
+       console.log("updated");
        let docId = store.selectedQuote;
        const ref: any = doc(db, "quotes", docId);
 
-       console.log('b efore update');
        await updateDoc(ref, {
            comment: arrayRemove(obj)
        });
@@ -40,16 +41,6 @@ const UpdateComment: React.FC<UpdateComment> = (props: UpdateComment ) => {
     //    store.commentObject.splice(0, lastElement);
     //      console.log("comm obj after push", toJS(store.commentObject))
 
-    //   await ref.set({
-    //     comment : arrayUnion({
-    //         id: uuidv4(),
-    //         author: "Bianca",
-    //         body: store.updatedCommentValue,
-    //         created: Timestamp.fromDate(new Date()),
-    //         updated: Timestamp.fromDate(new Date()),
-    //         votes: 0,
-    //     })
-    //    }, {merge: true})
 
     }
 

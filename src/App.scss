@@ -16,12 +16,15 @@
 @import url("./features/add-quote/add-quote.scss");
 @import url("./features/comment/comment.scss");
 
+html,
 body {
   background-color: #f5f6fa;
+  height: 100%;
 }
 
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .search {
@@ -30,8 +33,12 @@ body {
     flex-direction: row;
     align-items: center;
     padding: 20px 25px 0;
-    max-width: 500px;
+    max-width: 300px;
     width: 100%;
+
+    @media (min-width: 500px) {
+      max-width: 500px;
+    }
   }
 
   &__input {

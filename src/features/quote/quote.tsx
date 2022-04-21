@@ -11,14 +11,25 @@ import Comment from "../comment/comment";
 import AddComment from "../add-comment/addComment";
 
 const Quote = () => {
-  const [isToggle, setIsToggle] = useState(-1);
+  const [isToggle, setIsToggle] = useState(false);
+  const [toggleComments, setToggleComments] = useState(false);
 
   useEffect(() => {
     store.getQuotesList();
   }, []);
 
+  const togglerComments = () => {
+    setToggleComments(prev => !prev);
+  }
+
+  const toggleReply = () => {
+    setIsToggle(prev => !prev);
+  }
+
+
   const handleClick = (id: any) => {
     store.setSelectedQuote(id);
+    togglerComments.call(store.selectedQuote);
     store.quotesList.map((qt) => {
       if (id === qt.id) {
         store.setCommentObject(qt.comment);
@@ -28,7 +39,7 @@ const Quote = () => {
   };
 
   const handleReplyClick = (id: any) => {
-    setIsToggle(id);
+    toggleReply.call(id);
   };
 
   return (
@@ -105,9 +116,9 @@ const Quote = () => {
                     </div>
                   </div>
                 </div>
-                {isToggle === qt.id && <AddComment id={qt.id} />}
+                {isToggle && store.selectedQuote === qt.id && <AddComment id={qt.id} />}
 
-                {store.selectedQuote === qt.id && (
+                {store.selectedQuote === qt.id && toggleComments && (
                   <Comment
                     comments={store.commentObject}
                     id={store.selectedQuote}

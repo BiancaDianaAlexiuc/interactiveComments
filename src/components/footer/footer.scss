@@ -1,0 +1,13 @@
+.c-footer {
+    background-color: #ffffff;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
+    &__text {
+        color: #6263a9;
+        font-size: 16px;
+        font-weight: 600;
+    }
+}

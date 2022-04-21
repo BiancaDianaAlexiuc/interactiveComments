@@ -28,7 +28,6 @@ const AddComment: React.FC<AddComment> = (props: AddComment) => {
       }),
     });
 
-    store.getQuotesList();
   };
 
   return (
