@@ -32,10 +32,9 @@ const Quote = () => {
     togglerComments.call(store.selectedQuote);
     store.quotesList.map((qt) => {
       if (id === qt.id) {
-        store.setCommentObject(qt.comment);
+        store.getComments(id);
       }
     });
-    store.getQuotesList();
   };
 
   const handleReplyClick = (id: any) => {

@@ -13,7 +13,7 @@ class Store {
   newHashtags = [];
   isKeyReleased = false;
   showDeleteDialog = false;
-  quoteCollectionRef = collection(db, "quotes");
+  quoteCollectionRef = collection(db, "quotations");
   quoteData = [];
   selectedQuote = "";
   votesNumber = [];
@@ -44,9 +44,12 @@ class Store {
   editActive = false;
   updatedCommentValue = '';
 
+
   constructor() {
     makeAutoObservable(this);
   }
+
+
 
   setUpdatedCommentValue(updatedCommentValue) {
     this.updatedCommentValue = updatedCommentValue;
@@ -212,6 +215,16 @@ class Store {
     }
     return array;
 }
+
+  getComments = async (id) => {
+    const comments = collection(db, 'quotations', id, 'comments' );
+    const querySnapshot = await getDocs(comments);
+    const commentsObj = querySnapshot.docs.map(d => ({id: d.id, ...d.data()}));
+
+    this.setCommentObject(commentsObj);
+
+  }
+
 }
 
 const store = new Store();

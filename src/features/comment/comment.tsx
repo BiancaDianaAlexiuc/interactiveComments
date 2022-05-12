@@ -12,7 +12,7 @@ const Comment: React.FC<Comment> = (props: Comment) => {
         return (
           <SingleComment
             key={el.id}
-            votes={el.votes}
+            likes={el.likes}
             author={el.author}
             id={el.id}
             body={el.body}

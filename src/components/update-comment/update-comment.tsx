@@ -3,9 +3,6 @@ import { observer } from "mobx-react";
 import db from "../../firebase-config";
 import store from "../../store";
 import { v4 as uuidv4 } from "uuid";
-import { strictEqual } from "assert";
-import { toJS } from "mobx";
-import { FirebaseError } from "firebase/app";
 
 interface UpdateComment {
     value: string;
