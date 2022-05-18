@@ -9,7 +9,7 @@ import DeleteDialog from "../deleteDialog/deleteDialog";
 import { v4 as uuidv4 } from "uuid";
 
 interface SingleComment {
-  likes: any;
+  votes: any;
   author: any;
   id: any;
   body: any;
@@ -62,7 +62,7 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
     <div className="c-comment">
       <div className="c-quote__element">
         <div>
-          <Votes votesNumber={props.likes} quoteId={props.id} />
+          <Votes votesNumber={props.votes} quoteId={props.id} />
         </div>
         <div style={{ width: "100%", paddingLeft: "20px" }}>
           <div className="c-quote__header">

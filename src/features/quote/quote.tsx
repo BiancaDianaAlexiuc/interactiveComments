@@ -121,6 +121,7 @@ const Quote = () => {
                   <Comment
                     comments={store.commentObject}
                     id={store.selectedQuote}
+                    key={uuidv4()}
                   />
                 )}
               </div>

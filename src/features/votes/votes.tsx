@@ -1,5 +1,6 @@
 import { updateDoc, doc } from "firebase/firestore";
 import { toJS } from "mobx";
+import { observer } from "mobx-react";
 import db from "../../firebase-config";
 import store from "../../store";
 

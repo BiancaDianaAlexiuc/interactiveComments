@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, getDocs, where, doc, query } from "@firebase/firestore";
 import db from "./firebase-config";
 import { toJS } from "mobx";
 
@@ -13,7 +13,7 @@ class Store {
   newHashtags = [];
   isKeyReleased = false;
   showDeleteDialog = false;
-  quoteCollectionRef = collection(db, "quotations");
+  quoteCollectionRef = collection(db, "quotes");
   quoteData = [];
   selectedQuote = "";
   votesNumber = [];
@@ -38,7 +38,7 @@ class Store {
 
   // Delete comment
   toDelete = " ";
-  selectedComment = "";
+  selectedComment = '';
 
   //Update comment 
   editActive = false;
@@ -217,12 +217,17 @@ class Store {
 }
 
   getComments = async (id) => {
-    const comments = collection(db, 'quotations', id, 'comments' );
+    const comments = query(collection(db, 'comments'), where('id', '==',  id));
     const querySnapshot = await getDocs(comments);
-    const commentsObj = querySnapshot.docs.map(d => ({id: d.id, ...d.data()}));
+    const commentsObj = querySnapshot.docs.map((d) => ({id: d.id, ...d.data().comment})).find((el) => el);
+    // const com = Object.entries(commentsObj).forEach((k) => k[1]);
+   console.log(commentsObj, '<<<here', )
+   this.setCommentObject(commentsObj);
 
-    this.setCommentObject(commentsObj);
+  }
 
+  isObject(val) {
+    return (typeof val === 'object');
   }
 
 }

@@ -1,30 +1,42 @@
-import { doc, deleteDoc, updateDoc, arrayRemove } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc, arrayRemove, collection, getDocs } from "firebase/firestore";
+import { toJS } from "mobx";
+import { idText } from "typescript";
 import db from "../../firebase-config";
 import store from "../../store";
 
 
 const DeleteDialog = () => {
   const deleteQuote = async (id: string) => {
-    const quoteDoc = doc(db, "quotes", id);
+    const quoteDoc = doc(db, "quotations", id);
     await deleteDoc(quoteDoc);
 
     store.toggleDeleteDialog();
     store.getQuotesList();
   };
 
-  const deleteComment = async (obj: Object) => {
-    let  docId = store.selectedQuote;
-    const ref: any = doc(db, "quotes", docId);
+  const deleteComment = async (obj: any) => {
+    let  docId = obj.id;
+    console.log('DOC ID', docId);
+    const comments = collection(db, 'quotations', docId, 'comments');
+    const querySnapshot = await getDocs(comments);
+    console.log('comments', querySnapshot.docs.map(d => ({id: d.id, ...d.data()})));
+    //const ref: any = doc(db, 'quotations', docId);
+
+    querySnapshot.docs.map((d) => {
+      console.log('from here =>>>>>>>>>>>>>>', {id: d.id, ...d.data});
+    });
+
+    // await deleteDoc(ref);
 
   
-    await updateDoc(ref, {
-      comment: arrayRemove(obj)
-    })
-    .catch((err) => {
-      console.log("Error removing doc", err);
-    })
+    // await updateDoc(ref, {
+    //   comment: arrayRemove(obj)
+    // })
+    // .catch((err) => {
+    //   console.log("Error removing doc", err);
+    // })
 
-    store.removeFromArray(store.commentObject, obj);
+    // store.removeFromArray(store.commentObject, obj);
     store.toggleDeleteDialog();
     
   }
@@ -56,6 +68,7 @@ const DeleteDialog = () => {
               onClick={() => {
 
                 store.toDelete === "quote" ? deleteQuote(store.selectedQuote) : deleteComment(store.selectedComment)
+                console.log('SELECTED COM', toJS(store.selectedComment))
                 
               }}
               className="modal__delete-btn modal__delete-btn--confirm"
