@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 interface SingleComment {
   votes: any;
   author: any;
-  id: any;
+  commentId: any;
   body: any;
   comments: any;
 }
@@ -62,7 +62,7 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
     <div className="c-comment">
       <div className="c-quote__element">
         <div>
-          <Votes votesNumber={props.votes} quoteId={props.id} />
+          <Votes selected={'comment'} votesNumber={props.votes} quoteId={props.commentId} />
         </div>
         <div style={{ width: "100%", paddingLeft: "20px" }}>
           <div className="c-quote__header">
@@ -74,7 +74,7 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
               <button
                 onClick={() => {
                   store.toggleDeleteDialog();
-                  store.setToDelete("comment");
+                  store.setSelectedItem("comment");
                   store.setSelectedComment(props.comments);
                 }}
                 className="delete"

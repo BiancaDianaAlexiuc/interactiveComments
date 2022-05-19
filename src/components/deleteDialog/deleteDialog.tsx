@@ -48,13 +48,13 @@ const DeleteDialog = () => {
       <div className="modal__delete-content">
         <div className="modal__delete-header">
           <h2 className="modal__delete-title">
-            Delete {store.toDelete === "quote" ? "quote" : "comment"}
+            Delete {store.selectedItem === "quote" ? "quote" : "comment"}
           </h2>
         </div>
         <div className="modal__delete-body">
           <p className="modal__delete-desc">
             Are you sure you want to delete this{" "}
-            {store.toDelete === "quote" ? "quote" : "comment"}? This will remove
+            {store.selectedItem === "quote" ? "quote" : "comment"}? This will remove
             the quote and can't be undone.
           </p>
           <div className="modal__delete-btns">
@@ -67,7 +67,7 @@ const DeleteDialog = () => {
             <button
               onClick={() => {
 
-                store.toDelete === "quote" ? deleteQuote(store.selectedQuote) : deleteComment(store.selectedComment)
+                store.selectedItem === "quote" ? deleteQuote(store.selectedQuote) : deleteComment(store.selectedComment)
                 console.log('SELECTED COM', toJS(store.selectedComment))
                 
               }}

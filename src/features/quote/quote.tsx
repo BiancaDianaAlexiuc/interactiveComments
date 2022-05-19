@@ -57,7 +57,7 @@ const Quote = () => {
               <div className="c-quote__container" key={qt.id}>
                 <div className="c-quote__element">
                   <div>
-                    <Votes votesNumber={qt.likes} quoteId={qt.id} />
+                    <Votes selected={'quote'} votesNumber={qt.likes} quoteId={qt.id} />
                   </div>
                   <div style={{ width: "100%", paddingLeft: "20px" }}>
                     <div className="c-quote__header">
@@ -70,7 +70,7 @@ const Quote = () => {
                           onClick={() => {
                             store.toggleDeleteDialog();
                             store.setSelectedQuote(qt.id);
-                            store.setToDelete("quote");
+                            store.setSelectedItem("quote");
                           }}
                           className="delete"
                         >
@@ -120,7 +120,7 @@ const Quote = () => {
                 {store.selectedQuote === qt.id && toggleComments && (
                   <Comment
                     comments={store.commentObject}
-                    id={store.selectedQuote}
+                    commentId={store.selectedQuote}
                     key={uuidv4()}
                   />
                 )}

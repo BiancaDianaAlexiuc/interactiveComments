@@ -1,12 +1,12 @@
 import { updateDoc, doc } from "firebase/firestore";
 import { toJS } from "mobx";
-import { observer } from "mobx-react";
 import db from "../../firebase-config";
 import store from "../../store";
 
 interface IMyProps {
   votesNumber: number;
   quoteId: string;
+  selected: any;
 }
 
 const Votes: React.FC<IMyProps> = (props: IMyProps) => {
@@ -20,22 +20,33 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
     await updateDoc(likesDoc, newFields);
   };
 
+  const updateVotes = async (id: string, votes: number) => {
+    const votesDoc: any = doc(db, 'comments', id);
+    const newFields = { votes: votes };
+
+    await updateDoc(votesDoc, newFields);
+  }
+
   const upVote = (e: any) => {
+    console.log('EEE', store.commentId.map((el) => el.id))
     store.setDisabled((e.target.disabled = true));
     store.setVotesNumber(props.votesNumber + 1);
 
     voteValue = store.votesNumber;
-    console.log(store.votesNumber);
+    console.log('votes nr', store.votesNumber);
 
-    updateLikes(props.quoteId, voteValue);
-    store.userAction.push({
-      id: props.quoteId,
-      likes: voteValue,
-      disabled: store.disabled,
-    });
+    console.log('SELECTED', props.selected)
 
-    console.log(toJS(store.userAction));
-    store.getQuotesList();
+    if(props.selected === 'quote') {
+      updateLikes(props.quoteId, voteValue);
+      store.getQuotesList();
+
+    } else {
+      updateVotes(props.quoteId, voteValue);
+      store.getComments(props.quoteId);
+    }
+ 
+    store.setSelectedItem('');
   };
 
   const downVote = (e: any) => {
@@ -43,17 +54,17 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
     store.setVotesNumber(props.votesNumber - 1);
 
     voteValue = store.votesNumber;
-    console.log(store.votesNumber);
+    console.log('votes nr', store.votesNumber);
+    
+    if(props.selected === 'quote') {
+      updateLikes(props.quoteId, voteValue);
+      store.getQuotesList();
 
-    updateLikes(props.quoteId, voteValue);
-    store.userAction.push({
-      id: props.quoteId,
-      likes: voteValue,
-      disabled: store.disabled,
-    });
+    } else {
+      updateVotes(props.quoteId, voteValue);
+      store.getComments(props.quoteId);
+    }
 
-    console.log(toJS(store.userAction));
-    store.getQuotesList();
   };
 
   return (

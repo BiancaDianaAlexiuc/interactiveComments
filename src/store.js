@@ -32,12 +32,13 @@ class Store {
   //Show quote comments
   showComments = false;
   commentObject = [];
+  commentId = [];
 
   //Add new comment
   commentText = "";
 
   // Delete comment
-  toDelete = " ";
+  selectedItem = " ";
   selectedComment = '';
 
   //Update comment 
@@ -49,6 +50,9 @@ class Store {
     makeAutoObservable(this);
   }
 
+  setCommentId(commentId) {
+    this.commentId = commentId;
+  }
 
 
   setUpdatedCommentValue(updatedCommentValue) {
@@ -63,8 +67,8 @@ class Store {
     this.selectedComment = selectedComment;
   }
 
-  setToDelete(toDelete) {
-    this.toDelete = toDelete;
+  setSelectedItem(selectedItem) {
+    this.selectedItem = selectedItem;
   }
 
   setQuoteData(quoteData) {
@@ -219,15 +223,12 @@ class Store {
   getComments = async (id) => {
     const comments = query(collection(db, 'comments'), where('id', '==',  id));
     const querySnapshot = await getDocs(comments);
-    const commentsObj = querySnapshot.docs.map((d) => ({id: d.id, ...d.data().comment})).find((el) => el);
-    // const com = Object.entries(commentsObj).forEach((k) => k[1]);
-   console.log(commentsObj, '<<<here', )
-   this.setCommentObject(commentsObj);
+    const commentsObj = querySnapshot.docs.map((d) => ( {uid: d.id, ...d.data()}));
 
-  }
+    
+    console.log(commentsObj, '<<<here');
+    this.setCommentObject(commentsObj);
 
-  isObject(val) {
-    return (typeof val === 'object');
   }
 
 }
