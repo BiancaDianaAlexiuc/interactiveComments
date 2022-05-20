@@ -1,5 +1,4 @@
-.modal {
-  &__delete {
+.delete-dialog {
     position: fixed;
     z-index: 1;
     left: 0;
@@ -8,9 +7,9 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.1);
-  }
 
-  &__delete-content {
+
+  &__content {
     background-color: #fefefe;
     padding: 20px;
     border-radius: 6px;
@@ -22,24 +21,24 @@
     transform: translate(-50%, -50%);
   }
 
-  &__delete-header {
+  &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  &__delete-title {
+  &__title {
     margin: 0;
     color: #4d555d;
   }
 
-  &__delete-desc {
+  &__desc {
     font-size: 16px;
     color: #717679;
     text-align: left;
   }
 
-  &__delete-close {
+  &__close {
     color: #aaaaaa;
     font-size: 28px;
     font-weight: bold;
@@ -52,12 +51,12 @@
     }
   }
 
-  &__delete-btns {
+  &__btns {
     display: flex;
     justify-content: space-between;
   }
 
-  &__delete-btn {
+  &__btn {
     text-transform: uppercase;
     cursor: pointer;
     -webkit-appearance: none;

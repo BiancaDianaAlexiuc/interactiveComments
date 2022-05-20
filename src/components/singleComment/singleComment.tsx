@@ -1,4 +1,4 @@
-import { arrayRemove, arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, onSnapshot, Timestamp, updateDoc } from "firebase/firestore";
 import { observer } from "mobx-react";
 import { useState } from "react";
 import Votes from "../../features/votes/votes";
@@ -7,6 +7,7 @@ import store from "../../store";
 import Avatar from "../avatar/avatar";
 import DeleteDialog from "../deleteDialog/deleteDialog";
 import { v4 as uuidv4 } from "uuid";
+import { toJS } from "mobx";
 
 interface SingleComment {
   votes: any;
@@ -27,25 +28,29 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
     togglerEdit.call(id);
   }
 
-     const  updateComment  = async (obj: Object) => {
+     const  updateComment  = (obj: any, body: string) => {
        console.log("updated");
-       let docId = store.selectedQuote;
-       const ref: any = doc(db, "quotes", docId);
+       let docId = obj.uid;
+       const ref: any = doc(db, "comments", docId);
+       const newFields =  { body: body }
 
-       await updateDoc(ref, {
-           comment: arrayRemove(obj)
-       });
-
-       await updateDoc(ref, {
-           comment:  arrayUnion({
-            id: uuidv4(),
-            author: "Bianca",
-            body: store.updatedCommentValue,
-            created: Timestamp.fromDate(new Date()),
-            updated: Timestamp.fromDate(new Date()),
-            votes: 0,
-           })
+       console.log('update', toJS(obj), docId)
+       onSnapshot(doc(db, 'comments', docId), async (doc) => {
+         await updateDoc(ref, newFields);
        })
+
+     //  await updateDoc(ref, newFields);
+
+      //  await updateDoc(ref, {
+      //      comment:  arrayUnion({
+      //       id: uuidv4(),
+      //       author: "Bianca",
+      //       body: store.updatedCommentValue,
+      //       created: Timestamp.fromDate(new Date()),
+      //       updated: Timestamp.fromDate(new Date()),
+      //       votes: 0,
+      //      })
+      //  })
 
        setToggleEdit(false);
 
@@ -98,7 +103,7 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
 
            <div className="c-comment-update">
             <input className="c-comment-update__field" type="text" defaultValue={props.body} onChange={(e) => {store.setUpdatedCommentValue(e.target.value)}} />
-            <button onClick={() => updateComment(props.comments)} className="c-comment-update__btn">Update</button>
+            <button onClick={() => updateComment(props.comments, store.updatedCommentValue)} className="c-comment-update__btn">Update</button>
           </div> :
          // <UpdateComment value={props.body} id={props.comments.id} selectedCommentObj={toJS(props.comments)} /> :  
            <p className="quote-text" style={{ marginTop: "0" }}>

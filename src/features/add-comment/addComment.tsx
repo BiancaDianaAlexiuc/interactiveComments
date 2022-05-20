@@ -31,11 +31,11 @@ const AddComment: React.FC<AddComment> = (props: AddComment) => {
   };
 
   return (
-    <div className="c-add-comment__container">
+    <div className="add-comment__container">
       <Avatar />
       <textarea
         onChange={handleCommentChange}
-        className="c-add-comment__field"
+        className="add-comment__field"
       ></textarea>
       <button
         onClick={() => handleAddComment(props.id)}
@@ -44,7 +44,7 @@ const AddComment: React.FC<AddComment> = (props: AddComment) => {
             handleAddComment(props.id);
           }
         }}
-        className="c-add-comment__btn"
+        className="add-comment__btn"
       >
         Reply
       </button>

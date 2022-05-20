@@ -8,59 +8,44 @@ import store from "../../store";
 const DeleteDialog = () => {
   const deleteQuote = async (id: string) => {
     const quoteDoc = doc(db, "quotations", id);
-    await deleteDoc(quoteDoc);
+    console.log('id', id)
+   /// await deleteDoc(quoteDoc);
 
     store.toggleDeleteDialog();
     store.getQuotesList();
   };
 
   const deleteComment = async (obj: any) => {
-    let  docId = obj.id;
-    console.log('DOC ID', docId);
-    const comments = collection(db, 'quotations', docId, 'comments');
-    const querySnapshot = await getDocs(comments);
-    console.log('comments', querySnapshot.docs.map(d => ({id: d.id, ...d.data()})));
-    //const ref: any = doc(db, 'quotations', docId);
+    let  docId = obj.uid;
+    const comDoc = doc(db, 'comments', docId);
+    console.log('DOC ID', docId, toJS(obj));
 
-    querySnapshot.docs.map((d) => {
-      console.log('from here =>>>>>>>>>>>>>>', {id: d.id, ...d.data});
-    });
+    await deleteDoc(comDoc);
 
-    // await deleteDoc(ref);
-
-  
-    // await updateDoc(ref, {
-    //   comment: arrayRemove(obj)
-    // })
-    // .catch((err) => {
-    //   console.log("Error removing doc", err);
-    // })
-
-    // store.removeFromArray(store.commentObject, obj);
     store.toggleDeleteDialog();
-    
+    store.getComments(docId);  
   }
 
   
 
   return (
-    <div className="modal__delete">
-      <div className="modal__delete-content">
-        <div className="modal__delete-header">
-          <h2 className="modal__delete-title">
+    <div className="delete-dialog">
+      <div className="delete-dialog__content">
+        <div className="delete-dialog__header">
+          <h2 className="delete-dialog__title">
             Delete {store.selectedItem === "quote" ? "quote" : "comment"}
           </h2>
         </div>
-        <div className="modal__delete-body">
-          <p className="modal__delete-desc">
+        <div className="delete-dialog__body">
+          <p className="delete-dialog__desc">
             Are you sure you want to delete this{" "}
             {store.selectedItem === "quote" ? "quote" : "comment"}? This will remove
             the quote and can't be undone.
           </p>
-          <div className="modal__delete-btns">
+          <div className="delete-dialog__btns">
             <button
               onClick={store.toggleDeleteDialog}
-              className="modal__delete-btn modal__delete-btn--cancel"
+              className="delete-dialog__btn delete-dialog__btn--cancel"
             >
               No, Cancel
             </button>
@@ -71,7 +56,7 @@ const DeleteDialog = () => {
                 console.log('SELECTED COM', toJS(store.selectedComment))
                 
               }}
-              className="modal__delete-btn modal__delete-btn--confirm"
+              className="delete-dialog__btn delete-dialog__btn--confirm"
             >
               Yes, Delete
             </button>

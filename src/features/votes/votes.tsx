@@ -28,19 +28,14 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
   }
 
   const upVote = (e: any) => {
-    console.log('EEE', store.commentId.map((el) => el.id))
     store.setDisabled((e.target.disabled = true));
     store.setVotesNumber(props.votesNumber + 1);
-
     voteValue = store.votesNumber;
-    console.log('votes nr', store.votesNumber);
 
-    console.log('SELECTED', props.selected)
 
     if(props.selected === 'quote') {
       updateLikes(props.quoteId, voteValue);
       store.getQuotesList();
-
     } else {
       updateVotes(props.quoteId, voteValue);
       store.getComments(props.quoteId);
@@ -52,14 +47,12 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
   const downVote = (e: any) => {
     store.setDisabled((e.target.disabled = true));
     store.setVotesNumber(props.votesNumber - 1);
-
     voteValue = store.votesNumber;
-    console.log('votes nr', store.votesNumber);
+
     
     if(props.selected === 'quote') {
       updateLikes(props.quoteId, voteValue);
       store.getQuotesList();
-
     } else {
       updateVotes(props.quoteId, voteValue);
       store.getComments(props.quoteId);

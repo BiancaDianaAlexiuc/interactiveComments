@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <>
       <header className="header">
-        <button onClick={showAddQuote} className="add-quote">
+        <button onClick={showAddQuote} className="header__btn">
           Add quote
         </button>
       </header>

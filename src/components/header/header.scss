@@ -5,20 +5,22 @@
   justify-content: flex-end;
   min-height: 70px;
   background-color: #ffffff;
-}
 
-.add-quote {
-  background-color: #535bb1;
-  border-radius: 6px;
-  text-transform: capitalize;
-  font-weight: bold;
-  font-size: 14px;
-  color: #ffffff;
-  padding: 10px;
-  border: 0;
-  cursor: pointer;
+  &__btn {
+    background-color: #535bb1;
+    border-radius: 6px;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px;
+    border: 0;
+    cursor: pointer;
+    
+    &:hover {
+      opacity: 0.8;
+    }
 
-  &:hover {
-    opacity: 0.8;
   }
 }
+
