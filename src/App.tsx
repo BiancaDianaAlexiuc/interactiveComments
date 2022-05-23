@@ -1,14 +1,14 @@
 import "./App.scss";
 import Footer from "./components/footer/footer";
 import Header from "./components/header/header";
-import Quote from "./features/quote/quote";
-import Search from "./features/search/search";
+import Quotes from "./features/quotes/quotes";
+import Search from "./features/quotes/searchQuote/searchQuote";
 
 const App = () => {
   return (
     <div className="App">
       <Header />
-      <Quote />
+      <Quotes />
       <Footer />
     </div>
   );

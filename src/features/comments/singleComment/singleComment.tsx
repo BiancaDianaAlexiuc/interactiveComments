@@ -1,24 +1,17 @@
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { observer } from "mobx-react";
 import { useState } from "react";
-import Votes from "../../features/votes/votes";
-import db from "../../firebase-config";
-import store from "../../store";
-import Avatar from "../avatar/avatar";
-import DeleteDialog from "../deleteDialog/deleteDialog";
+import Votes from "../../../components/votes/votes";
+import db from "../../../firebase-config";
+import store from "../../../store";
+import Avatar from "../../../components/avatar/avatar";
+import DeleteDialog from "../../../components/deleteDialog/deleteDialog";
 import { v4 as uuidv4 } from "uuid";
 import { toJS } from "mobx";
-import AddComment from "../../features/add-comment/addComment";
+import AddComment from "../addComment/addComment";
+import { ISingleComment } from "../../../models/types";
 
-interface SingleComment {
-  votes: any;
-  author: any;
-  commentId: any;
-  body: any;
-  comments: any;
-}
-
-const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
+const SingleComment: React.FC<ISingleComment> = (props: ISingleComment) => {
   const [toggleEdit, setToggleEdit] = useState(false);
   const [toggleReply, setToggleReply] = useState(false);
 
@@ -55,7 +48,7 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
 
   return (
     <div className="single-comment">
-      <div className="quote__element">
+      <div className="quotes__element">
         <div>
           <Votes
             selected={"comment"}
@@ -64,8 +57,8 @@ const SingleComment: React.FC<SingleComment> = (props: SingleComment) => {
           />
         </div>
         <div style={{ width: "100%", paddingLeft: "20px" }}>
-          <div className="quote__header">
-            <div className="quote__header-details">
+          <div className="quotes__header">
+            <div className="quotes__header-details">
               <Avatar></Avatar>
               <p className="author">{props.author}</p>
             </div>

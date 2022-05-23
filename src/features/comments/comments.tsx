@@ -1,15 +1,11 @@
 import { observer } from "mobx-react";
 import { v4 as uuidv4 } from "uuid";
-import SingleComment from "../../components/singleComment/singleComment";
+import SingleComment from "./singleComment/singleComment";
+import { IComment } from "../../models/types";
 
-interface Comment {
-  commentId: string;
-  comments: any;
-}
-
-const Comment: React.FC<Comment> = (props: Comment) => {
+const Comments: React.FC<IComment> = (props: IComment) => {
   return (
-    <div className="comment">
+    <div className="comments">
       {props.comments.map((el: any) => {
         return (
           <SingleComment
@@ -26,4 +22,4 @@ const Comment: React.FC<Comment> = (props: Comment) => {
   );
 };
 
-export default observer(Comment);
+export default observer(Comments);

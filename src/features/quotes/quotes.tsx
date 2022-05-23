@@ -2,15 +2,15 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import Avatar from "../../components/avatar/avatar";
 import store from "../../store";
-import Votes from "../votes/votes";
+import Votes from "../../components/votes/votes";
 import { v4 as uuidv4 } from "uuid";
 import DeleteDialog from "../../components/deleteDialog/deleteDialog";
-import Search from "../search/search";
-import Filter from "../filter/filter";
-import Comment from "../comment/comment";
-import AddComment from "../add-comment/addComment";
+import AddComment from "../comments/addComment/addComment";
+import Comments from "../comments/comments";
+import FilterQuote from "./filterQuote/filterQuote";
+import SearchQuote from "./searchQuote/searchQuote";
 
-const Quote = () => {
+const Quotes = () => {
   const [isToggle, setIsToggle] = useState(false);
   const [toggleComments, setToggleComments] = useState(false);
 
@@ -42,20 +42,20 @@ const Quote = () => {
 
   return (
     <>
-      <div className="quote">
-        <div className="quote__filters">
-          <Search />
-          <Filter />
+      <div className="quotes">
+        <div className="quotes__filters">
+          <SearchQuote />
+          <FilterQuote />
         </div>
-        <div className="quote__list">
+        <div className="quotes__list">
           {store.foundQuery && store.foundQuery.length > 0 ? (
             store.foundQuery.map((qt: any) => {
               let created = qt.created.toDate().toDateString();
               let updated = qt.updated.toDate().toDateString();
               let hashtags = qt.hashtags;
               return (
-                <div className="quote__container" key={qt.id}>
-                  <div className="quote__element">
+                <div className="quotes__container" key={qt.id}>
+                  <div className="quotes__element">
                     <div>
                       <Votes
                         selected={"quote"}
@@ -64,8 +64,8 @@ const Quote = () => {
                       />
                     </div>
                     <div style={{ width: "100%", paddingLeft: "20px" }}>
-                      <div className="quote__header">
-                        <div className="quote__header-details">
+                      <div className="quotes__header">
+                        <div className="quotes__header-details">
                           <Avatar></Avatar>
                           <p className="author">{qt.author}</p>
                         </div>
@@ -124,7 +124,7 @@ const Quote = () => {
                   )}
 
                   {store.selectedQuote === qt.id && toggleComments && (
-                    <Comment
+                    <Comments
                       comments={store.commentObject}
                       commentId={store.selectedQuote}
                       key={uuidv4()}
@@ -144,4 +144,4 @@ const Quote = () => {
   );
 };
 
-export default observer(Quote);
+export default observer(Quotes);

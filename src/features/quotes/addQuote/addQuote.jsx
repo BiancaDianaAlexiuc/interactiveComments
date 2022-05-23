@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import store from "../../store";
+import store from "../../../store";
 
 import { addDoc, Timestamp } from "firebase/firestore";
 import { useState } from "react";

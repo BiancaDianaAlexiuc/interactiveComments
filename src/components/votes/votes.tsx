@@ -1,14 +1,9 @@
 import { updateDoc, doc } from "firebase/firestore";
 import db from "../../firebase-config";
+import { IVotes } from "../../models/types";
 import store from "../../store";
 
-interface IMyProps {
-  votesNumber: number;
-  quoteId: string;
-  selected: any;
-}
-
-const Votes: React.FC<IMyProps> = (props: IMyProps) => {
+const Votes: React.FC<IVotes> = (props: IVotes) => {
   let voteValue: any = props.votesNumber;
   store.setVotesNumber(voteValue);
 

@@ -1,14 +1,10 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
-import Avatar from "../../components/avatar/avatar";
-import store from "../../store";
-import db from "../../firebase-config";
+import Avatar from "../../../components/avatar/avatar";
+import store from "../../../store";
+import db from "../../../firebase-config";
+import { IAddComment } from "../../../models/types";
 
-interface AddComment {
-  id: string;
-  selected: string;
-}
-
-const AddComment: React.FC<AddComment> = (props: AddComment) => {
+const AddComment: React.FC<IAddComment> = (props: IAddComment) => {
   const handleCommentChange = (event: any) => {
     store.setCommentText(event.target.value);
   };

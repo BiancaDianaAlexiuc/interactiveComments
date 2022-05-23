@@ -1,18 +1,17 @@
-import { useState } from "react";
-import store from "../../store";
+import store from "../../../store";
 
-const Search = () => {
+const SearchQuote = () => {
   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
       store.filterQuote();
     }
   };
   return (
-    <div className="search__container">
+    <div className="search-quote">
       <input
         placeholder="Search using keywords"
         type="text"
-        className="search__input"
+        className="search-quote__input"
         onChange={store.handleInputChange}
         onKeyDown={(e) => {
           handleKeyDown(e);
@@ -21,10 +20,10 @@ const Search = () => {
       <input
         type="button"
         onClick={store.filterQuote}
-        className="search__button"
+        className="search-quote__button"
       ></input>
     </div>
   );
 };
 
-export default Search;
+export default SearchQuote;

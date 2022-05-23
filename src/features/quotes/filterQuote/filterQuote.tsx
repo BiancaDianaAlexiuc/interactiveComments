@@ -1,21 +1,14 @@
-import store from "../../store";
+import store from "../../../store";
 import Select, { StylesConfig } from "react-select";
+import { IColourOption } from "../../../models/types";
 
-export interface ColourOption {
-  readonly value: string;
-  readonly label: string;
-  readonly color: string;
-  readonly isFixed?: boolean;
-  readonly isDisabled?: boolean;
-}
-
-const Filter = () => {
+const FilterQuote = () => {
   const hashtagsList: any = [];
   store.hashtagsToFilter.forEach((el) => {
     hashtagsList.push({ label: el, value: el });
   });
 
-  const colourStyles: StylesConfig<ColourOption> = {
+  const colourStyles: StylesConfig<IColourOption> = {
     placeholder: (provided) => ({
       ...provided,
       fontSize: 14,
@@ -47,7 +40,7 @@ const Filter = () => {
   };
 
   return (
-    <div className="filter">
+    <div className="filter-quote">
       <Select
         isMulti
         name="colors"
@@ -63,4 +56,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default FilterQuote;

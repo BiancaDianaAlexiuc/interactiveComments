@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import AddQuote from "../../features/add-quote/addQuote";
+import AddQuote from "../../features/quotes/addQuote/addQuote";
 import store from "../../store";
 
 const Header = () => {

@@ -1,20 +1,20 @@
 //Components
-@import url("./components/avatar/avatar.scss");
-@import url("./components/button/button.scss");
-@import url("./components/deleteDialog/deleteDialog.scss");
-@import url("./components/footer/footer.scss");
 @import url("./components/header/header.scss");
-@import url("./components/no-content/no-content.scss");
-@import url('./components//singleComment/singleComment.scss');
+@import url("./components/footer/footer.scss");
+@import url("./components/avatar/avatar.scss");
+@import url("./components/deleteDialog/deleteDialog.scss");
+@import url("./components/noContent/noContent.scss");
+@import url("./components/votes/votes.scss");
 
-// Features
-@import url("./features/quote/quote.scss");
-@import url("./features/add-comment/add-comment.scss");
-@import url("./features/filter/filter.scss");
-@import url("./features/search/search.scss");
-@import url("./features/votes/votes.scss");
-@import url("./features/add-quote/add-quote.scss");
-@import url("./features/comment/comment.scss");
+// Feature Quotes
+@import url("./features/quotes/quotes.scss");
+@import url("./features/quotes/addQuote/addQuote.scss");
+@import url("./features/quotes/filterQuote/filterQuote.scss");
+@import url("./features/quotes/searchQuote/searchQuote.scss");
+
+//Feature Comments
+@import url("./features/comments/comments.scss");
+@import url("./features/comments/singleComment/singleComment.scss");
 
 html,
 body {
@@ -25,45 +25,4 @@ body {
 .App {
   text-align: center;
   height: 100%;
-}
-
-.search {
-  &__container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 20px 25px 0;
-    max-width: 300px;
-    width: 100%;
-
-    @media (min-width: 500px) {
-      max-width: 500px;
-    }
-  }
-
-  &__input {
-    width: 100%;
-    border: 1px solid #c3c7c8;
-    box-sizing: border-box;
-    border-radius: 5px;
-    padding: 10px;
-    margin-right: 20px;
-  }
-
-  &__button {
-    background-color: #535bb1;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 38px;
-    height: 38px;
-    background-image: url("../src/assets/icons/icon-search.svg");
-    background-position: center;
-    background-size: auto;
-    background-repeat: no-repeat;
-    border: 0;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
 }
