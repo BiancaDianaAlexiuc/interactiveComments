@@ -9,18 +9,18 @@ interface Comment {
 
 const Comment: React.FC<Comment> = (props: Comment) => {
   return (
-    <div className="c-comments__container">
+    <div className="comment">
       {props.comments.map((el: any) => {
-          return (
-            <SingleComment
-              key={uuidv4()}
-              votes={el.votes}
-              author={el.author}
-              commentId={el.uid}
-              body={el.body}
-              comments={el}
-             />
-          )
+        return (
+          <SingleComment
+            key={uuidv4()}
+            votes={el.votes}
+            author={el.author}
+            commentId={el.uid}
+            body={el.body}
+            comments={el}
+          />
+        );
       })}
     </div>
   );

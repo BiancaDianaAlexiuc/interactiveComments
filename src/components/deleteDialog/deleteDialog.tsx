@@ -1,15 +1,23 @@
-import { doc, deleteDoc, updateDoc, arrayRemove, collection, getDocs } from "firebase/firestore";
+import { doc, deleteDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { toJS } from "mobx";
-import { idText } from "typescript";
 import db from "../../firebase-config";
 import store from "../../store";
 
 
 const DeleteDialog = () => {
   const deleteQuote = async (id: string) => {
-    const quoteDoc = doc(db, "quotations", id);
-    console.log('id', id)
-   /// await deleteDoc(quoteDoc);
+    const quoteDoc = doc(db, "quotes", id);
+    const commentsDoc = query(collection(db, 'comments'), where('id', '==',  id));
+    const querySnapshot = await getDocs(commentsDoc);
+
+   await deleteDoc(quoteDoc);
+   
+   querySnapshot.docs.map((el) => {
+      const commentsRef = doc(db, 'comments', el.id)
+      deleteDoc(commentsRef)
+  
+  });
+
 
     store.toggleDeleteDialog();
     store.getQuotesList();

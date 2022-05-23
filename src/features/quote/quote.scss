@@ -1,4 +1,4 @@
-.c-quote {
+.quote {
   &__filters {
     display: flex;
     flex-direction: column;
@@ -135,15 +135,14 @@
   }
 }
 
-
 .icon-edit {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: 10px;
-    background-image: url("../../assets/icons/icon-edit.svg");
-    background-size: cover;
-    background-repeat: no-repeat;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  background-image: url("../../assets/icons/icon-edit.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @media (min-width: 800px) {

@@ -1,12 +1,11 @@
-import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import Avatar from "../../components/avatar/avatar";
-
 import store from "../../store";
-import { v4 as uuidv4 } from "uuid";
 import db from "../../firebase-config";
 
 interface AddComment {
   id: string;
+  selected: string;
 }
 
 const AddComment: React.FC<AddComment> = (props: AddComment) => {
@@ -15,19 +14,20 @@ const AddComment: React.FC<AddComment> = (props: AddComment) => {
   };
 
   const handleAddComment = async (id: any) => {
-    const ref: any = doc(db, "quotes", id);
+    const ref: any = collection(db, "comments");
 
-    await updateDoc(ref, {
-      comment: arrayUnion({
-        id: uuidv4(),
+    if (props.selected === "quote") {
+      await addDoc(ref, {
+        id: id,
         author: "Bianca",
         body: store.commentText,
         created: Timestamp.fromDate(new Date()),
         updated: Timestamp.fromDate(new Date()),
         votes: 0,
-      }),
-    });
-
+      });
+    } else {
+      console.log("comment reply to be added here");
+    }
   };
 
   return (

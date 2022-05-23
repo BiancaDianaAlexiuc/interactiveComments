@@ -19,13 +19,12 @@ const Quote = () => {
   }, []);
 
   const togglerComments = () => {
-    setToggleComments(prev => !prev);
-  }
+    setToggleComments((prev) => !prev);
+  };
 
   const toggleReply = () => {
-    setIsToggle(prev => !prev);
-  }
-
+    setIsToggle((prev) => !prev);
+  };
 
   const handleClick = (id: any) => {
     store.setSelectedQuote(id);
@@ -43,95 +42,103 @@ const Quote = () => {
 
   return (
     <>
-      <div className="c-quote__filters">
-        <Search />
-        <Filter />
-      </div>
-      <div className="c-quote__list">
-        {store.foundQuery && store.foundQuery.length > 0 ? (
-          store.foundQuery.map((qt: any) => {
-            let created = qt.created.toDate().toDateString();
-            let updated = qt.updated.toDate().toDateString();
-            let hashtags = qt.hashtags;
-            return (
-              <div className="c-quote__container" key={qt.id}>
-                <div className="c-quote__element">
-                  <div>
-                    <Votes selected={'quote'} votesNumber={qt.likes} quoteId={qt.id} />
-                  </div>
-                  <div style={{ width: "100%", paddingLeft: "20px" }}>
-                    <div className="c-quote__header">
-                      <div className="c-quote__header-details">
-                        <Avatar></Avatar>
-                        <p className="author">{qt.author}</p>
+      <div className="quote">
+        <div className="quote__filters">
+          <Search />
+          <Filter />
+        </div>
+        <div className="quote__list">
+          {store.foundQuery && store.foundQuery.length > 0 ? (
+            store.foundQuery.map((qt: any) => {
+              let created = qt.created.toDate().toDateString();
+              let updated = qt.updated.toDate().toDateString();
+              let hashtags = qt.hashtags;
+              return (
+                <div className="quote__container" key={qt.id}>
+                  <div className="quote__element">
+                    <div>
+                      <Votes
+                        selected={"quote"}
+                        votesNumber={qt.likes}
+                        quoteId={qt.id}
+                      />
+                    </div>
+                    <div style={{ width: "100%", paddingLeft: "20px" }}>
+                      <div className="quote__header">
+                        <div className="quote__header-details">
+                          <Avatar></Avatar>
+                          <p className="author">{qt.author}</p>
+                        </div>
+                        <div>
+                          <button
+                            onClick={() => {
+                              store.toggleDeleteDialog();
+                              store.setSelectedQuote(qt.id);
+                              store.setSelectedItem("quote");
+                            }}
+                            className="delete"
+                          >
+                            <span className="icon-delete"></span>
+                            Delete
+                          </button>
+                          <button
+                            onClick={() => handleReplyClick(qt.id)}
+                            className="reply"
+                          >
+                            <span className="icon-reply"></span>
+                            Reply
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <button
-                          onClick={() => {
-                            store.toggleDeleteDialog();
-                            store.setSelectedQuote(qt.id);
-                            store.setSelectedItem("quote");
-                          }}
-                          className="delete"
-                        >
-                          <span className="icon-delete"></span>
-                          Delete
-                        </button>
-                        <button
-                          onClick={() => handleReplyClick(qt.id)}
-                          className="reply"
-                        >
-                          <span className="icon-reply"></span>
-                          Reply
-                        </button>
+                      <p
+                        onClick={() => {
+                          handleClick(qt.id);
+                        }}
+                        className="quote-text"
+                        style={{ marginTop: "0" }}
+                      >
+                        {qt.body}
+                      </p>
+                      <ul className="hashtag-list">
+                        {hashtags.map((hashtag: string) => {
+                          return (
+                            <li key={uuidv4()} className="hashtag">
+                              #{hashtag}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <p className="created">Created at: {created} </p>
+                        <p className="updated">Updated at: {updated}</p>
                       </div>
                     </div>
-                    <p
-                      onClick={() => {
-                        handleClick(qt.id);
-                      }}
-                      className="quote-text"
-                      style={{ marginTop: "0" }}
-                    >
-                      {qt.body}
-                    </p>
-                    <ul className="hashtag-list">
-                      {hashtags.map((hashtag: string) => {
-                        return (
-                          <li key={uuidv4()} className="hashtag">
-                            #{hashtag}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <p className="created">Created at: {created} </p>
-                      <p className="updated">Updated at: {updated}</p>
-                    </div>
                   </div>
+                  {isToggle && store.selectedQuote === qt.id && (
+                    <AddComment selected="quote" id={qt.id} />
+                  )}
+
+                  {store.selectedQuote === qt.id && toggleComments && (
+                    <Comment
+                      comments={store.commentObject}
+                      commentId={store.selectedQuote}
+                      key={uuidv4()}
+                    />
+                  )}
                 </div>
-                {isToggle && store.selectedQuote === qt.id && <AddComment id={qt.id} />}
+              );
+            })
+          ) : (
+            <h1>No results found!</h1>
+          )}
 
-                {store.selectedQuote === qt.id && toggleComments && (
-                  <Comment
-                    comments={store.commentObject}
-                    commentId={store.selectedQuote}
-                    key={uuidv4()}
-                  />
-                )}
-              </div>
-            );
-          })
-        ) : (
-          <h1>No results found!</h1>
-        )}
-
-        {store.showDeleteDialog && <DeleteDialog />}
+          {store.showDeleteDialog && <DeleteDialog />}
+        </div>
       </div>
     </>
   );

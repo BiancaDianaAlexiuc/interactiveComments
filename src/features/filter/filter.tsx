@@ -47,7 +47,7 @@ const Filter = () => {
   };
 
   return (
-    <div className="c-filter__container">
+    <div className="filter">
       <Select
         isMulti
         name="colors"

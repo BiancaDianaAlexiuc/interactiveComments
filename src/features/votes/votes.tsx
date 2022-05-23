@@ -1,5 +1,4 @@
 import { updateDoc, doc } from "firebase/firestore";
-import { toJS } from "mobx";
 import db from "../../firebase-config";
 import store from "../../store";
 
@@ -21,27 +20,26 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
   };
 
   const updateVotes = async (id: string, votes: number) => {
-    const votesDoc: any = doc(db, 'comments', id);
+    const votesDoc: any = doc(db, "comments", id);
     const newFields = { votes: votes };
 
     await updateDoc(votesDoc, newFields);
-  }
+  };
 
   const upVote = (e: any) => {
     store.setDisabled((e.target.disabled = true));
     store.setVotesNumber(props.votesNumber + 1);
     voteValue = store.votesNumber;
 
-
-    if(props.selected === 'quote') {
+    if (props.selected === "quote") {
       updateLikes(props.quoteId, voteValue);
       store.getQuotesList();
     } else {
       updateVotes(props.quoteId, voteValue);
       store.getComments(props.quoteId);
     }
- 
-    store.setSelectedItem('');
+
+    store.setSelectedItem("");
   };
 
   const downVote = (e: any) => {
@@ -49,15 +47,13 @@ const Votes: React.FC<IMyProps> = (props: IMyProps) => {
     store.setVotesNumber(props.votesNumber - 1);
     voteValue = store.votesNumber;
 
-    
-    if(props.selected === 'quote') {
+    if (props.selected === "quote") {
       updateLikes(props.quoteId, voteValue);
       store.getQuotesList();
     } else {
       updateVotes(props.quoteId, voteValue);
       store.getComments(props.quoteId);
     }
-
   };
 
   return (
