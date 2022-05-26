@@ -1,7 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { collection, getDocs, where, doc, query } from "@firebase/firestore";
+import { collection, getDocs, where, query } from "@firebase/firestore";
 import db from "./firebase-config";
-import { toJS } from "mobx";
 
 class Store {
   quotesList = [];
@@ -39,12 +38,11 @@ class Store {
 
   // Delete comment
   selectedItem = " ";
-  selectedComment = '';
+  selectedComment = "";
 
-  //Update comment 
+  //Update comment
   editActive = false;
-  updatedCommentValue = '';
-
+  updatedCommentValue = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -54,13 +52,12 @@ class Store {
     this.commentId = commentId;
   }
 
-
   setUpdatedCommentValue(updatedCommentValue) {
     this.updatedCommentValue = updatedCommentValue;
   }
 
   setEditActive(editActive) {
-   this.editActive = editActive;
+    this.editActive = editActive;
   }
 
   setSelectedComment(selectedComment) {
@@ -171,8 +168,8 @@ class Store {
   };
 
   toggleEditComment = () => {
-   this.editActive = !this.editActive;
-  }
+    this.editActive = !this.editActive;
+  };
 
   toggleDeleteComment = () => {
     this.deleteComment = !this.deleteComment;
@@ -215,22 +212,21 @@ class Store {
   removeFromArray = (array, value) => {
     var idx = array.indexOf(value);
     if (idx !== -1) {
-        array.splice(idx, 1);
+      array.splice(idx, 1);
     }
     return array;
-}
+  };
 
   getComments = async (id) => {
-    const comments = query(collection(db, 'comments'), where('id', '==',  id));
+    const comments = query(collection(db, "comments"), where("id", "==", id));
     const querySnapshot = await getDocs(comments);
-    const commentsObj = querySnapshot.docs.map((d) => ( {uid: d.id, ...d.data()}));
-
-    
-    console.log(commentsObj, '<<<here');
+    const commentsObj = querySnapshot.docs.map((d) => ({
+      uid: d.id,
+      ...d.data(),
+    }));
+    console.log(commentsObj, "<<<here");
     this.setCommentObject(commentsObj);
-
-  }
-
+  };
 }
 
 const store = new Store();

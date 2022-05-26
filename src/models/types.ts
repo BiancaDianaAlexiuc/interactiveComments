@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface ISingleComment {
   votes: any;
   author: any;
@@ -28,4 +30,19 @@ export interface IVotes {
   votesNumber: number;
   quoteId: string;
   selected: any;
+}
+
+export interface ISingleQuote {
+  selected: string;
+  votesNumber: number;
+  quoteId: string;
+  author: string;
+  body: string;
+  handleDeleteClick: any;
+  //handleReplyClick: any;
+  handleShowComments: any;
+  hashtags: any;
+  created: any;
+  updated: any;
+  comments: any;
 }

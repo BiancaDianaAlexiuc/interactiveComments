@@ -1,40 +1,45 @@
-import { doc, deleteDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  doc,
+  deleteDoc,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { toJS } from "mobx";
 import db from "../../firebase-config";
 import store from "../../store";
 
-
 const DeleteDialog = () => {
   const deleteQuote = async (id: string) => {
     const quoteDoc = doc(db, "quotes", id);
-    const commentsDoc = query(collection(db, 'comments'), where('id', '==',  id));
+    const commentsDoc = query(
+      collection(db, "comments"),
+      where("id", "==", id)
+    );
     const querySnapshot = await getDocs(commentsDoc);
 
-   await deleteDoc(quoteDoc);
-   
-   querySnapshot.docs.map((el) => {
-      const commentsRef = doc(db, 'comments', el.id)
-      deleteDoc(commentsRef)
-  
-  });
+    await deleteDoc(quoteDoc);
 
+    querySnapshot.docs.map((el) => {
+      const commentsRef = doc(db, "comments", el.id);
+      deleteDoc(commentsRef);
+    });
 
     store.toggleDeleteDialog();
     store.getQuotesList();
   };
 
   const deleteComment = async (obj: any) => {
-    let  docId = obj.uid;
-    const comDoc = doc(db, 'comments', docId);
-    console.log('DOC ID', docId, toJS(obj));
+    let docId = obj.uid;
+    const comDoc = doc(db, "comments", docId);
+    console.log("DOC ID", docId, toJS(obj));
 
     await deleteDoc(comDoc);
 
     store.toggleDeleteDialog();
-    store.getComments(docId);  
-  }
-
-  
+    store.getComments(docId);
+  };
 
   return (
     <div className="delete-dialog">
@@ -47,8 +52,8 @@ const DeleteDialog = () => {
         <div className="delete-dialog__body">
           <p className="delete-dialog__desc">
             Are you sure you want to delete this{" "}
-            {store.selectedItem === "quote" ? "quote" : "comment"}? This will remove
-            the quote and can't be undone.
+            {store.selectedItem === "quote" ? "quote" : "comment"}? This will
+            remove the quote and can't be undone.
           </p>
           <div className="delete-dialog__btns">
             <button
@@ -59,10 +64,10 @@ const DeleteDialog = () => {
             </button>
             <button
               onClick={() => {
-
-                store.selectedItem === "quote" ? deleteQuote(store.selectedQuote) : deleteComment(store.selectedComment)
-                console.log('SELECTED COM', toJS(store.selectedComment))
-                
+                store.selectedItem === "quote"
+                  ? deleteQuote(store.selectedQuote)
+                  : deleteComment(store.selectedComment);
+                console.log("SELECTED COM", toJS(store.selectedComment));
               }}
               className="delete-dialog__btn delete-dialog__btn--confirm"
             >

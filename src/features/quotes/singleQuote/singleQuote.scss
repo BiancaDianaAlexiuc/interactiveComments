@@ -1,0 +1,117 @@
+.single-quote {
+  background-color: #ffffff;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  display: flex;
+  width: inherit;
+
+  .quote-text {
+    cursor: pointer;
+  }
+
+  .quote-text,
+  .created,
+  .updated {
+    font-size: 14px;
+    color: #8b8e93;
+    font-weight: 400;
+    text-align: left;
+  }
+
+  .hashtag-list {
+    list-style: unset;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+
+  .hashtag {
+    padding: 0 10px;
+    display: inline;
+    color: #6263a9;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5em;
+    justify-content: space-between;
+
+    &-details {
+      display: flex;
+      align-items: center;
+
+      .author {
+        color: #4e565c;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0 10px;
+      }
+
+      .time {
+        color: #979a9f;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .icon-reply {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+      background-image: url("../../../assets/icons/icon-reply.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .reply,
+    .edit {
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
+      color: #6263a9;
+      font-size: 14px;
+      font-weight: 600;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .delete {
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
+      color: #ef6465;
+      font-size: 14px;
+      font-weight: 600;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .icon-delete {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 10px;
+      background-image: url("../../../assets/icons/icon-delete.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.icon-edit {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  background-image: url("../../../assets/icons/icon-edit.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
