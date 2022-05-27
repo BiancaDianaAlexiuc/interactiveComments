@@ -1,6 +1,7 @@
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { toJS } from "mobx";
 import { useState } from "react";
+import { Stream } from "stream";
 import { v4 as uuidv4 } from "uuid";
 import Avatar from "../../../components/avatar/avatar";
 import Votes from "../../../components/votes/votes";
@@ -43,7 +44,6 @@ const SingleQuote: React.FC<ISingleQuote> = ({
   };
 
   const updateComment = (obj: any, body: string) => {
-    console.log("updated");
     let docId = obj.uid;
     const ref: any = doc(db, "comments", docId);
     const newFields = { body: body };
@@ -154,7 +154,7 @@ const SingleQuote: React.FC<ISingleQuote> = ({
         </div>
       </div>
 
-      {isToggle && <AddComment selected="quote" id={quoteId} />}
+      {isToggle && <AddComment selected={selected} id={quoteId} />}
     </div>
   );
 };

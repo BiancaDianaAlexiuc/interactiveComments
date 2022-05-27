@@ -1,4 +1,11 @@
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  Timestamp,
+  updateDoc,
+} from "firebase/firestore";
 import Avatar from "../../../components/avatar/avatar";
 import store from "../../../store";
 import db from "../../../firebase-config";
@@ -11,6 +18,8 @@ const AddComment: React.FC<IAddComment> = (props: IAddComment) => {
 
   const handleAddComment = async (id: any) => {
     const ref: any = collection(db, "comments");
+    const comRef: any = doc(db, "comments", id);
+    const snapshot: any = await getDocs(ref);
 
     if (props.selected === "quote") {
       await addDoc(ref, {
@@ -20,9 +29,21 @@ const AddComment: React.FC<IAddComment> = (props: IAddComment) => {
         created: Timestamp.fromDate(new Date()),
         updated: Timestamp.fromDate(new Date()),
         votes: 0,
+        replies: {},
       });
     } else {
       console.log("comment reply to be added here");
+      snapshot.docs.map((doc: any) => {
+        updateDoc(comRef, {
+          replies: {
+            id: id,
+            author: "Bianca",
+            body: store.commentText,
+            created: Timestamp.fromDate(new Date()),
+            updated: Timestamp.fromDate(new Date()),
+          },
+        });
+      });
     }
   };
 
